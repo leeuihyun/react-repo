@@ -1,7 +1,10 @@
 import React,{Component} from 'react';
 import Subject from "./compos/Subject"
 import Middle from "./compos/Middle"
-import Content from "./compos/Contents"
+import ReadContents from "./compos/ReadContents"
+import CreateContents from "./compos/CreateContents"
+import Control from "./compos/Control"
+import UpdateContents from "./compos/UpdateContents"
 
 class App extends Component{
   constructor(props){
@@ -18,21 +21,49 @@ class App extends Component{
       ]
     }
   }
-  render(){ 
-    console.log('render');
-    var _title,_desc = null;
+  getContent(){
+    var _title,_desc,_article = null;
     if(this.state.mode === "welcome"){
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
+      _article = <ReadContents title = {_title} sub = {_desc}></ReadContents>
       
-    }else{
+    }else if(this.state.mode === "read"){
       this.state.contents.forEach((item)=>{
         if(item.id === this.state.selected_id){
           _title = item.title;
           _desc = item.desc;
+          _article = <ReadContents title = {_title} sub = {_desc}></ReadContents>
         }
       })
+    }else if(this.state.mode === "create"){
+      _article = <CreateContents onAddContents = {function(_title,_desc){
+        let max_id;
+        this.state.contents.forEach((item)=>{
+          max_id = item.id;
+        })
+        max_id+=1;
+        var _contents = this.state.contents.concat(
+          {id : max_id, title : _title, desc : _desc}
+        )
+        this.setState({
+          contents : _contents
+        })
+      }.bind(this)}></CreateContents>
+    }else if(this.state.mode === "update"){
+      var _data;
+      this.state.contents.forEach((item)=>{
+        if(item.id === this.state.selected_id){
+          _data = item;
+        }
+      })
+      _article = <UpdateContents data = {_data}></UpdateContents>
     }
+    return _article;
+  }
+  render(){ 
+    console.log('render');
+    
     return(
       <div className="App">
         <Subject title ={this.state.subject.title}  
@@ -52,7 +83,12 @@ class App extends Component{
         }.bind(this)}
         data = {this.state.contents}> 
         </Middle>
-        <Content title = {_title} sub = {_desc}></Content>
+        <Control modeChange={function(_mode){
+          this.setState({
+            mode : _mode
+          }); 
+        }.bind(this)}></Control>
+        {this.getContent()}
       </div>
     )
   }

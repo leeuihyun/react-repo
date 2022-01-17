@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Contents extends React.Component{
+class ReadContents extends React.Component{
     render(){
         return(
             <footer>
@@ -12,4 +12,4 @@ class Contents extends React.Component{
     }
 }
 
-export default Contents;
+export default ReadContents;
