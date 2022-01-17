@@ -1,6 +1,7 @@
 import React from 'react';
 
 class UpdateContents extends React.Component{
+
     constructor(props){
         super(props);
         this.state = {
@@ -16,6 +17,7 @@ class UpdateContents extends React.Component{
     render(){
         console.log(this.props.data);
         return(
+
             <footer>
                 <h1>Update</h1>
                 <form action = "/update_process" method = "post" onSubmit = {function(e){
@@ -23,6 +25,7 @@ class UpdateContents extends React.Component{
                     const et = e.target;
                     this.props.onAddContents(et.title.value, et.desc.value);  
                 }.bind(this)}>
+
                     <p><input 
                         type="text" 
                         placeholder = "title" 
@@ -38,6 +41,7 @@ class UpdateContents extends React.Component{
                             this.inputFormHandler.bind(this)
                         }
                     /></p>
+
                     <p><input type="submit" /></p>
                 </form>
             </footer>

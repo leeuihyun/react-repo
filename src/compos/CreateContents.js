@@ -12,7 +12,9 @@ class CreateContents extends React.Component{
                     this.props.onAddContents(et.title.value, et.desc.value);  
                 }.bind(this)}>
                     <p><input type="text" placeholder = "title" name = "title"/></p>
+
                     <p><textarea placeholder = "description" name = "desc"/></p>
+                   
                     <p><input type="submit" /></p>
                 </form>
             </footer>
