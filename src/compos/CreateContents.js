@@ -14,7 +14,7 @@ class CreateContents extends React.Component{
                     <p><input type="text" placeholder = "title" name = "title"/></p>
 
                     <p><textarea placeholder = "description" name = "desc"/></p>
-                   
+
                     <p><input type="submit" /></p>
                 </form>
             </footer>

@@ -43,11 +43,17 @@ class App extends Component{
           max_id = item.id;
         })
         max_id+=1;
-        var _contents = this.state.contents.concat(
-          {id : max_id, title : _title, desc : _desc}
+        //var _contents = this.state.contents.concat(
+        //  {id : max_id, title : _title, desc : _desc}
+        //) 이것도 맞지만 Array.from()을 이용해서 한번해보자.
+        var _contents = Array.from(this.state.contents);
+        _contents.push(
+          {id:max_id, title : _title, desc : _desc}
         )
         this.setState({
-          contents : _contents
+          contents : _contents,
+          mode : 'read',
+          selected_id : max_id
         })
       }.bind(this)}></CreateContents>
     }else if(this.state.mode === "update"){
@@ -57,7 +63,19 @@ class App extends Component{
           _data = item;
         }
       })
-      _article = <UpdateContents data = {_data}></UpdateContents>
+      _article = <UpdateContents data = {_data} onSubmit = {function(_id,_title,_desc){
+          var _contents = Array.from(this.state.contents);
+          _contents.forEach((item)=>{
+            if(item.id === _id){
+              item.title = _title;
+              item.desc = _desc;
+            }
+          });
+          this.setState({
+            mode : 'read',
+            contents : _contents
+          })
+      }.bind(this)}></UpdateContents>
     }
     return _article;
   }
