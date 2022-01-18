@@ -4,6 +4,7 @@ class UpdateContents extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            id : this.props.data.id,
             title : this.props.data.title,
             desc : this.props.data.desc
         }
@@ -16,13 +17,17 @@ class UpdateContents extends React.Component{
     render(){
         console.log(this.props.data);
         return(
-            <footer>
+            <article>
                 <h1>Update</h1>
                 <form action = "/update_process" method = "post" onSubmit = {function(e){
                     e.preventDefault();
-                    const et = e.target;
-                    this.props.onAddContents(et.title.value, et.desc.value);  
+                    this.props.onSubmit(
+                        this.state.id,
+                        this.state.title,
+                        this.state.desc
+                    )
                 }.bind(this)}>
+                    <input type="hidden" name = "id" value = {this.state.id}/>
                     <p><input 
                         type="text" 
                         placeholder = "title" 
@@ -40,7 +45,7 @@ class UpdateContents extends React.Component{
                     /></p>
                     <p><input type="submit" /></p>
                 </form>
-            </footer>
+            </article>
             
         )
     }
