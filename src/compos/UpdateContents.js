@@ -45,8 +45,7 @@ class UpdateContents extends React.Component{
                     /></p>
                     <p><input type="submit" /></p>
                 </form>
-            </article>
-            
+            </article>          
         )
     }
 }
