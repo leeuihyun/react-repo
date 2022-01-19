@@ -120,7 +120,6 @@ class App extends Component{
               mode : _mode
             });
           }
-           
         }.bind(this)}></Control>
         {this.getContent()}
       </div>
