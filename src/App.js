@@ -102,9 +102,24 @@ class App extends Component{
         data = {this.state.contents}> 
         </Middle>
         <Control modeChange={function(_mode){
-          this.setState({
-            mode : _mode
-          }); 
+          if(_mode==='delete'){
+            if(window.confirm('Really Delete?')){
+              var _contents = this.state.contents.filter(function(data){
+                return data.id!==this.state.selected_id;
+              }.bind(this));
+              this.setState({
+                mode : 'welcome',
+                contents : _contents
+              });
+              alert('Deleted');
+            }
+
+          }
+          else{
+            this.setState({
+              mode : _mode
+            });
+          }
         }.bind(this)}></Control>
         {this.getContent()}
       </div>
